@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClimaTempo.Models
 {
-    internal class Clima
+    public class Clima
     {
         public DateTime Data { get; set; }
         public string Condicao { get; set; }

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace ClimaTempo.Models
 {
-    public class Previsao
+    public class Cidade
     {
-        public string Cidade { get; set; }
+        public string Nome { get; set; }
+        public int Id { get; set; }
         public string Estado { get; set; }
-        public DateTime Atualizado_em { get; set; }
-        public List <Clima> clima { get; set; }
     }
 }

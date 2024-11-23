@@ -26,8 +26,12 @@ namespace ClimaTempo.Services
                 WriteIndented = true,
             };
         }
-        public async Task<Previsao> GetPrevisaoById(int cityCode)
+        public async Task<Previsao> GetPrevisaoById(int cityCode, int days)
+
         {
+            cityCode = 244;
+            days = 3;
+            Uri requesturi = new Uri($"{uri}/{cityCode}/{days}");
             try
             {
                 HttpResponseMessage response = await client.GetAsync(uri);
@@ -44,5 +48,14 @@ namespace ClimaTempo.Services
             return previsao;
         }
 
+        internal async Task<Previsao> GetPrevisaoById(int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<Previsao> GetPrevisaoForXDaysById(int v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
