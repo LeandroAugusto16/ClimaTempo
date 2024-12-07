@@ -25,7 +25,7 @@ namespace ClimaTempo.ViewModels
         [ObservableProperty]
         private double min;
         [ObservableProperty]
-        private string indiceuv;
+        private double indiceuv;
 
         private Previsao previsao;
         private List<Clima> proximosdias;
@@ -43,26 +43,29 @@ namespace ClimaTempo.ViewModels
 
         public PrevisaoViewModel()
         {
-            BuscarPrevisaoCommand = new Command(BuscarPrevisao);
+            BuscarPrevisaoCommand = new Command<int>(BuscarPrevisao);
             BuscarCidadeCommand = new Command(BuscarCidades);
         }
 
-        public async void BuscarPrevisao()
+        public async void BuscarPrevisao(int Id)
         {
             //Busca dados da previsão de uma cidade
-            previsao = await new PrevisaoService().GetPrevisaoById(244);
+            previsao = await new PrevisaoService().GetPrevisaoById(Id);
             Cidade = previsao.Cidade;
+            Condicao = previsao.clima[0].Condicao;
             Max = previsao.clima[0].Max;
             Min = previsao.clima[0].Min;
+            Indiceuv = previsao.clima[0].Indice_uv;
+            Condicao_desc = previsao.clima[0].Condicao_desc.Trim();
 
             //Busca dados da previsão para os próximos dias
-            proxPrevisao = await new PrevisaoService().GetPrevisaoForXDaysById(244, 3);
-            proximosdias = proxPrevisao.clima;
+            /*proxPrevisao = await new PrevisaoService().GetPrevisaoForXDaysById(244, 3);
+            proximosdias = proxPrevisao.clima;*/
         }
         public async void BuscarCidades()
         {
-            cidadeList = new List<Cidade>();
-            cidadeList = await new CidadeService().GetCidadeByName(cidade_pesquisada);
+            CidadeList = new List<Cidade>();
+            CidadeList = await new CidadeService().GetCidadeByName(cidade_pesquisada);
         }
     }
 }
